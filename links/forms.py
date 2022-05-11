@@ -57,6 +57,9 @@ class RegisterForm(forms.Form):
         return confirm_password
 
     def clean(self):
-        pass
+        data = super().clean() # cleaned_data
+        if data['username'] in usernames:
+            raise ValidationError('This username is already registered on our platform')
+        return data
 class MyForm(forms.Form):
     pass   

@@ -117,4 +117,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/users/login'
 LOGIN_REDIRECT_URL = '/users/check-user'
+LOGIN_REDIRECT_URL = '/users/check-user'
+LOGOUT_REDIRECT_URL = '/listlar'
 # APPEND_SLASH = True
