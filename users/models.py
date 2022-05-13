@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 # django.contrib.auth -> models, forms, views
+
 
 # class User:
 #     username = models.CharField(
