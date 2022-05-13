@@ -3,10 +3,15 @@ from django.forms import ValidationError
 from django import forms
 from .models import Link
 # Error()
+
 class LinkForm(forms.ModelForm):
+
     class Meta:
         model = Link
         fields = ['name', 'description', 'url'] # ('name', 'description', 'url')
+    
+    # def clean_<field_name>(self):
+    #     pass    
     
     def clean_description(self):
         print('clean_date funksiyasi ishga tushdi:', self.cleaned_data)

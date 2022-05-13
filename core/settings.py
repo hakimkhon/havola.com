@@ -19,8 +19,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'links',
-    'users',
+    'links',    #my app
+    'users',    #my app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,6 +70,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+    #     'default': {
+    #     'ENGINE': '',
+    #     'NAME': 'mydatabase',
+    #     'USER': 'myuser',
+    #     'password': 'mypassword',
+    #     'host': 'localhost',
+    #     'port': '5432'
+    # }
 }
 
 
@@ -115,8 +123,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 # APPEND_SLASH = False
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/users/custom_login'
 LOGIN_URL = '/users/login'
-LOGIN_REDIRECT_URL = '/users/check-user'
 LOGIN_REDIRECT_URL = '/users/check-user'
 LOGOUT_REDIRECT_URL = '/listlar'
 # APPEND_SLASH = True

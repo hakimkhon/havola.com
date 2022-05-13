@@ -17,5 +17,9 @@
     <h2>Foydalanuvchi staffmi: {{user.is_staff}}</h2>
     <h2>Foydalanuvchi superusermi: {{user.is_superuser}}</h2>
   {% endif %}
+  <a href="{% url 'link:link_list' %}" style="padding: 5px 7px; background: blue; color: white;">
+    Home page
+  </a>
+  
 </body>
 </html>

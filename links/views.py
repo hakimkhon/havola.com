@@ -1,81 +1,108 @@
+from .models import Link
+from links import models
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
-from .models import Link
-from links import models
 from .forms import LinkForm, RegisterForm
 
 def home(request):    
+    # logic goes here
+    # return HttpResponse("<h1>Hello, World!</h1>")
     return render(request, "details/home.html")
 
+def bye(request):
+    # logic goes here
+    return HttpResponse("<h1>Good Bye, Guys!</h1>")
 
-def link_list(request):
-    links = Link.objects.all()
+# def link_list(request):
+#     links = Link.objects.all()
+#     _html_template = loader.get_template('link_list.html')
+#     context = {
+#         "title": "Bu sarlavha",
+#         "linklar": links
+#     }
+#     _html = _html_template.render(context, request)
+#     return HttpResponse(_html)
+
+def link_list(request):     # list-view
+    links = Link.objects.all()  # queryset
     context = {
         "title": "Bu sarlavha",
         "linklar": links
     }
-    return render(request, "link/link_list.html", context)
+    return render(request, "link/link_list.html", context)   # shortcuts
 
+
+# def link_detail(request, pk):
+#     try:
+#         link = Link.objects.get(id=pk)  # get(name="birinchi havola")
+#     except Exception as e:
+#         print(e)
+#         raise Http404('Afsuski siz izlagan link topilmadi!')
+#         # return HttpResponse("Afsuski siz izlagan link topilmadi!") # 200 HTTP 
+
+#     return render(request, 'link_detail.html', {'link': link}) # 200 HTTP
 
 def link_detail(request, pk):
     link = get_object_or_404(models.Link, id = pk)
-    # try:
-    #     link = Link.objects.get(id = pk)
-    # except Exception as e:
-    #     print(e)
-    #     raise Http404('Afsuski siz izlagan link topilmadi!' )
+    
     return render(request, "link/link_detail.html", {'link': link})
 
 
-# def link_create(request):   
+# def link_create(request):
 #     errors = {}
-#     date = {}
-                # print(f"============={ request.mathod }=============")
-                # if request.mathod == 'GET':
-                #     print('bu get so\'rovi edi')
-                #     print('request.GET=', request.GET)
-    
-    # if request.method == 'POST':
-    #     print(request.POST)
-    #     name_of_link = request.POST.get('name')
-    #     description_of_link = request.POST.get('description')
-    #     url_of_link = request.POST.get('url')
-    #     date['name'] = name_of_link
-    #     date['description'] = description_of_link
-    #     date['url'] = url_of_link
+#     data = {}
+#     print(f"==========={request.method}===============")
+#     if request.method == 'GET':
+#         print('bu GET so\'rovi edi. Bunday zaproslar kelganda biror logika boyicha response qaytarish mumkin')
+#         print('request.GET=', request.GET) # request.GET  - QueryDict: {} (QueryDictionary)
 
-    #     if name_of_link and url_of_link:
-    #         new_link = Link.objects.create(
-    #             name = name_of_link,
-    #             description = description_of_link,
-    #             url = url_of_link
-    #         )
-    #         return redirect('/list')
-    #     else:
-    #         if not name_of_link:
-    #             errors['name'] = 'Iltimos link nomini kiriting'
-    #         if not url_of_link:
-    #             errors['url'] = 'Iltimos link urlini kiriting'
+#     if request.method == 'POST':
+#         print(request.POST)
+#         link_name = request.POST.get('name')
+#         link_description = request.POST.get('description')
+#         link_url = request.POST.get('url')
+#         data['name'] = link_name
+#         data['description'] = link_description
+#         data['url'] = link_url
+#         # new_link = Link(name=link_name)
+#         # new_link.url = link_url
+#         # new_link.description = link_description
+#         # new_link.image = 'asd'
+#         # new_link.save()
+#         if link_name and link_url:
+#             old_link = Link.objects.filter(name=link_name) # QuerySet [<Link 1>, <Link 2>]
+#             if old_link: # old_link.exists()
+#                 errors['other'] = 'Bunday nom bilan havola qoshilgan. Iltimos boshqa nom tanlang'
+            
+#             new_link = Link.objects.create(
+#                 name=link_name,
+#                 description=link_description,
+#                 url=link_url
+#             )
+#             return redirect('/havolalar/') # domain.nomie/havolalar/
+#         else:
+#             if not link_name:
+#                 errors['name'] = 'Please input link name'
+            
+#             if not link_url:
+#                 errors['url'] = 'Please input link url'
 
-    # return render(request, "link/link_create.html", {'errors': errors, 'date': date})
-
+#     return render(request, 'link_create.html', {'errors': errors, 'data': data}) # 200 HTTP
 
 def link_create(request):   
     form = LinkForm()
-    errors = {}
-    date = {}
     
     if request.method == 'POST':
-        form = LinkForm(request.POST)
-        if form.is_valid:
-            form.save()
+        # request.POST['name']
+        form = LinkForm(request.POST) # is_bounded
+        # form.is_valid()
+        if form.is_valid(): # False
+            form.save() # model from
             return redirect('link:link_list')
 
-    return render(request, "link/link_create.html", {
-        'errors': errors, 'date': date, 'form': form
-    })
+    return render(request, "link/link_create.html", {'form': form}) # 200 HTTP
 
 
 def link_update(request, pk):

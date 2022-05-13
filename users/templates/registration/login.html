@@ -9,11 +9,21 @@
 <body>
   <h1>Login HTML</h1>
   <form action="" method="post">
+    <p>{{error}}</p>
     {{form.as_p}}
     {% csrf_token %}
     <input type="submit" value="KIRISH">
   </form>
   <br>
+  <button><a href="{% url 'users:custom_login' %}">
+    shunchaki kirish
+  </a></button>
+  <button><a href="{% url 'users:login' %}">
+    tezroq kirish
+  </a></button>
+  <p> 
+    <a href="{% url 'users:register' %}" >Ro'yxatdan o'tish</a>
+  </p>
   <a href="{% url 'link:link_list' %}" style="padding: 5px 7px; background: blue; color: white;">
     Home page
 </a>
