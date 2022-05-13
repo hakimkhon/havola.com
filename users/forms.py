@@ -4,12 +4,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
+    
     username = forms.CharField(required=True)
     password = forms.CharField(required=True, widget=PasswordInput)
 
     def clean_username(self):
-        username = self.cleaned_data.get['username']
-        if User.objects.filter(username=username).exists(): # -> true yoki false qaytaradi
+        username = self.cleaned_data['username']
+        if not User.objects.filter(username=username).exists(): # -> true yoki false qaytaradi
             raise forms.ValidationError('bunday username ga ega foydalanuvchi topilmadi')
         return username
     
@@ -17,7 +18,7 @@ class LoginForm(forms.Form):
         username = self.cleaned_data.get("username")
         password = self.cleaned_data["password"]
         if username:
-            user = User.objects.filter(username=username)
+            user = User.objects.filter(username=username).first()
             if user:
                 if not user.check_password(password):
                     raise forms.ValidationError("parol noto'gri")
