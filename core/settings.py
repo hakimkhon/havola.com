@@ -128,4 +128,6 @@ LOGIN_URL = '/users/custom_login'
 LOGIN_URL = '/users/login'
 LOGIN_REDIRECT_URL = '/users/check-user'
 LOGOUT_REDIRECT_URL = '/listlar'
+AUTH_USER_MODEL = 'users.User'
+
 # APPEND_SLASH = True
